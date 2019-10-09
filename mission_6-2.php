@@ -73,6 +73,8 @@ require 'tools/database_connect/database_connect.php';
 
 <input type="button" value="コメントを更新" onclick = "location.href='mission_6-2.php#2'" class = "update" id = "2">
 
+<input type="button" value="↓" onclick = "location.href='#2'" class = "jump_bottom">
+
 </body>
 
 </html>

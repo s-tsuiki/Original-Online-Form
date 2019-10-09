@@ -69,6 +69,25 @@ strong {
 	border-radius: 10px;
 }
 
+.form input[type="submit"] {
+  	padding: 0.5em 1em;
+  	text-decoration: none;
+  	background-color: #668ad8;/*ボタン色*/
+  	color: #ffffff;
+  	border-radius: 5px;
+}
+
+.item {
+	/*max-width: 500px;*/
+	margin-top: 2%;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.item lavel {
+	vertical-align: top;
+}
+
 .error_message {
 	background-color: #ffff00;
 	/*border: solid 5px #000000;*/
@@ -131,5 +150,15 @@ strong {
   	background-color: #ffffff;/*ボタン色*/
   	color: #000000;
   	border-radius: 5px;
+}
+
+.jump_bottom {
+	position: fixed;
+	/*display: block;*/
+	right: 5%;
+	bottom: 10%;
+	background-color: #eeeeee;
+	padding: 1em;
+	opacity: 0.8;
 }
 

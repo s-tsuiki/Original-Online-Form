@@ -229,13 +229,16 @@ require '../tools/database_connect/database_connect.php';
 
 <div class = "form">
 <h2>入力フォーム</h2>
-<p>コメントを入力してください。<strong>誹謗中傷等がないよう、投稿内容には十分注意してください。</strong></p>
+<p>コメントを入力してください。</p>
+<p><strong>誹謗中傷等がないよう、投稿内容には十分注意してください。</strong></p>
 <form method = "post" action = "mypage.php">
  <input type = "hidden" name = "name" value = <?php if(!empty($name)){echo "'$name'";}?> >
- コメント:<br>
- <textarea name="comment" cols="40" rows="5"><?php if(!empty($comment)){echo htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');}?></textarea> <br>
+ <div class = "item">
+   <lavel for="comment">コメント:</lavel>
+   <textarea name="comment" cols="40" rows="5"><?php if(!empty($comment)){echo htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');}?></textarea>
+ </div>
  <input type = "hidden" name = "password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "送信">
+ <input type = "submit" value = "送信" class = "submit">
  <input type = "hidden" name = "e_number" value = <?php if(!empty($e_number)){echo $e_number;}?> >
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
@@ -243,22 +246,30 @@ require '../tools/database_connect/database_connect.php';
 
 <div class = "form">
 <h2>削除フォーム</h2>
-<p>削除番号を入力してください。自分が投稿したコメントのみ削除できます。</p>
+<p>削除番号を入力してください。</p>
+<p>自分が投稿したコメントのみ削除できます。</p>
 <form method = "post" action = "mypage.php">
- 削除番号:<input type = "number" name = "delete_number"><br>
+ <div class = "item">
+  <lavel for="delete_number">削除番号:</lavel>
+  <input type = "number" name = "delete_number">
+ </div>
  <input type = "hidden" name = "delete_password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "削除">
+ <input type = "submit" value = "削除" class = "submit">
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
 </div>
 
 <div class = "form">
 <h2>編集フォーム</h2>
-<p>編集番号を入力してください。自分が投稿したコメントのみ編集できます。</p>
+<p>編集番号を入力してください。</p>
+<p>自分が投稿したコメントのみ編集できます。</p>
 <form method = "post" action = "mypage.php">
- 編集番号:<input type = "number" name = "edit_number"><br>
+ <div class = "item">
+  <lavel for="edit_number">編集番号:</lavel>
+  <input type = "number" name = "edit_number">
+ </div>
  <input type = "hidden" name = "edit_password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "編集">
+ <input type = "submit" value = "編集" class = "submit">
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
 </div>
@@ -368,6 +379,8 @@ require '../tools/database_connect/database_connect.php';
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
  <input type = "submit" value="コメントを更新" class = "update"><br> 
 </form>
+
+<input type="button" value="↓" onclick = "location.href='#2'" class = "jump_bottom">
 
 </body>
 

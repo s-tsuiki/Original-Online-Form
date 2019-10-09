@@ -117,3 +117,13 @@ strong {
   	border-radius: 5px;
 }
 
+.jump_bottom {
+	position: fixed;
+	/*display: block;*/
+	right: 5%;
+	bottom: 10%;
+	background-color: #eeeeee;
+	padding: 1em;
+	opacity: 0.8;
+}
+
