@@ -20,7 +20,7 @@ function send_test_mail($mail_address, $url){
     $mail->CharSet = "UTF-8";
     $mail->Encoding = "base64";
     $mail->setFrom(MAIL_FROM,MAIL_FROM_NAME);
-    $mail->addAddress($mail_address, 'テスト'); //受信者（送信先）を追加する
+    $mail->addAddress($mail_address, 'ユーザー'); //受信者（送信先）を追加する
 //    $mail->addReplyTo('xxxxxxxxxx@xxxxxxxxxx','返信先');
 //    $mail->addCC('xxxxxxxxxx@xxxxxxxxxx'); // CCで追加
 //    $mail->addBcc('xxxxxxxxxx@xxxxxxxxxx'); // BCCで追加
