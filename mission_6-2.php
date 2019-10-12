@@ -62,7 +62,7 @@ require 'tools/database_connect/database_connect.php';
 		echo date('Y/m/d H:i:s', strtotime($row['date_time']));
 		echo '</div>';
 		echo '<div class = "comment">';
-		echo '<p>'.htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8').'</p>';
+		echo '<p>'.str_replace(["\r\n","\r","\n"], "</p><p>", htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8')).'</p>';
 		echo '</div>';
 	}
 
@@ -71,7 +71,7 @@ require 'tools/database_connect/database_connect.php';
 ?>
 <br>
 
-<input type="button" value="コメントを更新" onclick = "location.href='mission_6-2.php#2'" class = "update" id = "2">
+<input type="button" value="コメントを更新" onclick = "window.location.reload();location.href='#2'" class = "update" id = "2">
 
 <input type="button" value="↓" onclick = "location.href='#2'" class = "jump_bottom">
 

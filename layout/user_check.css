@@ -16,6 +16,7 @@ h2 {
 
 html, body {
 	height: 100%;
+	width: 100%;
 }
 
 body {
@@ -31,31 +32,32 @@ strong {
 	color: #ff0000;		/*赤色*/
 }
 
-.login_area {
+.confirm_area {
 	background-color: #ffffff;
+	width: 750px;
 	max-width: 90%;
 	padding: 2%;
 	text-align: center;
 	border-radius: 10px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
-.login_area h1 {
+.confirm_area h1 {
 	color: #ffcc99;
 }
 
-.login_area p {
+.form p {
 	text-align: left;
-}
-
-.login_area input {
 	max-width: 100%;
 }
 
-.login {
+.back, .registrate {
 	padding: 0.5em 1em;
   	text-decoration: none;
   	background-color: #668ad8;/*ボタン色*/
   	color: #ffffff;
   	border-radius: 5px;
-	margin-top: 2%;
+	margin: 2% 1%;
 }
+

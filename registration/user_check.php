@@ -115,23 +115,30 @@ require '../tools/database_connect/database_connect.php';
 <head>
   <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
+  <link rel="stylesheet" type="text/css" href="../layout/user_check.css">
   <title>ユーザー登録確認画面</title>
 </head>
 <body>
-<h1>ユーザー登録確認画面</h1>
+<div class="confirm_area">
+
+<h1>Web掲示板</h1>
  
 <?php if (count($errors) === 0): ?>
  
+<h2>ユーザー登録確認</h2>
+
+<form action="user_registration_complete.php" method="post" class="form">
  
-<form action="user_registration_complete.php" method="post">
+<p>メールアドレス：</p>
+<p><?=htmlspecialchars($_SESSION['mail'], ENT_QUOTES)?></p>
+<p>ユーザー名：</p>
+<p><?=htmlspecialchars($user, ENT_QUOTES)?></p>
+<p>パスワード：</p>
+<p><?=$password_hide?></p>
  
-<p>メールアドレス：<?=htmlspecialchars($_SESSION['mail'], ENT_QUOTES)?></p>
-<p>ユーザー名：<?=htmlspecialchars($user, ENT_QUOTES)?></p>
-<p>パスワード：<?=$password_hide?></p>
- 
-<input type="button" value="戻る" onClick="history.back()">
+<input type="button" value="戻る" onClick="history.back()" class ="back">
 <input type="hidden" name="token" value="<?=$_POST['token']?>">
-<input type="submit" value="登録する">
+<input type="submit" value="登録する" class = "registrate">
  
 </form>
  
@@ -139,13 +146,15 @@ require '../tools/database_connect/database_connect.php';
  
 <?php
 	foreach($errors as $value){
-		echo "<p>".$value."</p>";
+		echo "<p><strong>".$value."</strong></p>";
 	}
 ?>
  
-<input type="button" value="戻る" onClick="history.back()">
+<input type="button" value="戻る" onClick="history.back()" class = "back">
  
 <?php endif; ?>
+
+</div>
  
 </body>
 </html>

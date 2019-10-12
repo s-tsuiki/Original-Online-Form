@@ -31,24 +31,17 @@ strong {
 	color: #ff0000;		/*赤色*/
 }
 
-.login_area {
+.complete_area {
 	background-color: #ffffff;
+	width: 700px;
 	max-width: 90%;
 	padding: 2%;
 	text-align: center;
 	border-radius: 10px;
 }
 
-.login_area h1 {
+.complete_area h1 {
 	color: #ffcc99;
-}
-
-.login_area p {
-	text-align: left;
-}
-
-.login_area input {
-	max-width: 100%;
 }
 
 .login {
@@ -59,3 +52,4 @@ strong {
   	border-radius: 5px;
 	margin-top: 2%;
 }
+

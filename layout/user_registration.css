@@ -3,7 +3,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 }
 
 h1 {
@@ -16,6 +16,7 @@ h2 {
 
 html, body {
 	height: 100%;
+	width: 100%;
 }
 
 body {
@@ -31,31 +32,46 @@ strong {
 	color: #ff0000;		/*赤色*/
 }
 
-.login_area {
+.registration_area {
 	background-color: #ffffff;
+	width: 600px;
 	max-width: 90%;
+	max-height: 95%;
 	padding: 2%;
 	text-align: center;
 	border-radius: 10px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
-.login_area h1 {
+.registration_area h1 {
 	color: #ffcc99;
 }
 
-.login_area p {
+.form p {
 	text-align: left;
-}
-
-.login_area input {
 	max-width: 100%;
 }
 
-.login {
+/*p.mail {
+	word-wrap: break-word;
+}*/
+
+.registration_area input[type="text"], input[type="password"] {
+	width: 100%;
+}
+
+.confirm {
 	padding: 0.5em 1em;
   	text-decoration: none;
   	background-color: #668ad8;/*ボタン色*/
   	color: #ffffff;
   	border-radius: 5px;
-	margin-top: 2%;
+	margin: 2% 0;
 }
+
+.registration_area ul {
+	padding-left: 10px;
+	text-align: left;
+}
+

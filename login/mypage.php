@@ -281,68 +281,68 @@ require '../tools/database_connect/database_connect.php';
 	//エラーメッセージ
 	if($case == 1 || $case == 2){
 		if(empty($_POST['name'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['comment'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: コメントを入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: コメントを入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 	}
 	elseif($case == 3){
 		if(empty($_POST['delete_number'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 削除番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 削除番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif($_POST['delete_number'] <= 0){
-			echo "-----------------------------------------<br>";
-			echo "Error: 正しい削除番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 正しい削除番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['delete_password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "----------------------------------------------------<br>";
-			echo "Error: 自分のコメントの削除番号を指定してください。<br>";
-			echo "----------------------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 自分のコメントの削除番号を指定してください。</strong><br>";
+			echo "<br>";
 		}
 	}
 	elseif($case == 4){
 		if(empty($_POST['edit_number'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 編集番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 編集番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif($_POST['edit_number'] <= 0){
-			echo "-----------------------------------------<br>";
-			echo "Error: 正しい編集番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 正しい編集番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['edit_password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "---------------------------------------------------<br>";
-			echo "Error: 自分のコメントの編集番号を指定してください。<br>";
-			echo "---------------------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 自分のコメントの編集番号を指定してください。</strong><br>";
+			echo "<br>";
 		}
 	}
 	
@@ -366,7 +366,7 @@ require '../tools/database_connect/database_connect.php';
 		echo date('Y/m/d H:i:s', strtotime($row['date_time']));
 		echo '</div>';
 		echo '<div class = "comment">';
-		echo '<p>'.htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8').'</p>';
+		echo '<p>'.str_replace(["\r\n","\r","\n"], "</p><p>", htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8')).'</p>';
 		echo '</div>';
 	}
 

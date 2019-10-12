@@ -3,7 +3,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 }
 
 h1 {
@@ -29,7 +29,7 @@ strong {
 
 .mail_check {
 	background-color: #ffffff;
-	width: 600px;
+	width: 700px;
 	max-width: 90%;
 	padding: 2%;
 	text-align: center;

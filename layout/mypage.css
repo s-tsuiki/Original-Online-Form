@@ -93,6 +93,8 @@ strong {
 	/*border: solid 5px #000000;*/
 	color: #ff0000;
 	text-align: center;
+	font-size: 120%;
+	padding: 0;
 }
 
 .comment_title {
