@@ -55,7 +55,7 @@ require '../tools/database_connect/database_connect.php';
 		
 		//メール入力判定
 		if ($mail == ''){
-			$errors['mail'] = "メールが入力されていません。";
+			$errors['mail'] = "メールアドレスが入力されていません。";
 		}else{
 			if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mail)){
 				$errors['mail_check'] = "メールアドレスの形式が正しくありません。";
@@ -88,7 +88,8 @@ require '../tools/database_connect/database_connect.php';
 	if (count($errors) === 0){
 	
 		$urltoken = hash('sha256',uniqid(rand(),1));
-		$url = "https://tb-210333.tech-base.net/registration/user_registration.php"."?urltoken=".$urltoken;
+		//*****.comの部分は、このページが置いてあるURLと同じ
+		$url = "https://*****.com/registration/user_registration.php"."?urltoken=".$urltoken;
 		
 		//ここでデータベースに登録する
 		try{
@@ -122,7 +123,7 @@ require '../tools/database_connect/database_connect.php';
  			//セッションを破棄する
  			session_destroy();
  	
- 			$message = "メールをお送りしました。<br><strong>10分以内に</strong>メールに記載されたURLからご登録下さい。";
+ 			$message = "<p>メールをお送りしました。</p><p><strong>10分以内</strong>にメールに記載されたURLからご登録下さい。</p>";
  	
 	 	} else {
 			$errors['mail_error'] = $message;
@@ -145,7 +146,7 @@ require '../tools/database_connect/database_connect.php';
  
 <?php if (count($errors) === 0): ?>
  
-<p><?=$message?></p>
+<?=$message?>
  
 <?php elseif(count($errors) > 0): ?>
  
