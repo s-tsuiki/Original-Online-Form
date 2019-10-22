@@ -88,7 +88,8 @@ require '../tools/database_connect/database_connect.php';
 	if (count($errors) === 0){
 	
 		$urltoken = hash('sha256',uniqid(rand(),1));
-		$url = "https://tb-210333.tech-base.net/registration/user_registration.php"."?urltoken=".$urltoken;
+		//*****.comの部分は、このページが置いてあるURLと同じ
+		$url = "https://*****.com/registration/user_registration.php"."?urltoken=".$urltoken;
 		
 		//ここでデータベースに登録する
 		try{
