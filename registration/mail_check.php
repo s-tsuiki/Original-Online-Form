@@ -1,6 +1,7 @@
 <?php
 require '../phpmailer/send_test_mail.php';
 require '../tools/database_connect/database_connect.php';
+require '../tools/make_url/make_url.php';
 
 	session_start();
 	
@@ -55,7 +56,7 @@ require '../tools/database_connect/database_connect.php';
 		
 		//メール入力判定
 		if ($mail == ''){
-			$errors['mail'] = "メールが入力されていません。";
+			$errors['mail'] = "メールアドレスが入力されていません。";
 		}else{
 			if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mail)){
 				$errors['mail_check'] = "メールアドレスの形式が正しくありません。";
@@ -88,8 +89,7 @@ require '../tools/database_connect/database_connect.php';
 	if (count($errors) === 0){
 	
 		$urltoken = hash('sha256',uniqid(rand(),1));
-		//*****.comの部分は、このページが置いてあるURLと同じ
-		$url = "https://*****.com/registration/user_registration.php"."?urltoken=".$urltoken;
+		$url = make_url()."/registration/user_registration.php"."?urltoken=".$urltoken;
 		
 		//ここでデータベースに登録する
 		try{
@@ -123,7 +123,7 @@ require '../tools/database_connect/database_connect.php';
  			//セッションを破棄する
  			session_destroy();
  	
- 			$message = "メールをお送りしました。10分以内にメールに記載されたURLからご登録下さい。";
+ 			$message = "<p>メールをお送りしました。</p><p><strong>10分以内</strong>にメールに記載されたURLからご登録下さい。</p>";
  	
 	 	} else {
 			$errors['mail_error'] = $message;
@@ -137,26 +137,29 @@ require '../tools/database_connect/database_connect.php';
 <head>
  <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
  <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
+ <link rel="stylesheet" type="text/css" href="../layout/mail_check.css">
  <title>メール確認画面</title>
 </head>
 <body>
-<h1>メール確認画面</h1>
+<div class = "mail_check">
+<h1>Web掲示板</h1>
  
 <?php if (count($errors) === 0): ?>
  
-<p><?=$message?></p>
+<?=$message?>
  
 <?php elseif(count($errors) > 0): ?>
  
 <?php
 foreach($errors as $value){
-	echo "<p>".$value."</p>";
+	echo "<p><strong>".$value."</strong></p>";
 }
 ?>
  
-<input type="button" value="戻る" onClick="history.back()">
+<input type="button" value="戻る" onClick="history.back()" class = "back">
  
 <?php endif; ?>
  
+</div>
 </body>
 </html>

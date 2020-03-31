@@ -29,12 +29,30 @@ strong {
 	color: #ff0000;		/*赤色*/
 }
 
+.user_bar {
+	background-color: #7da4cd;
+	color: #ffffff;
+	position: relative;
+	/*min-height: 1.5em;*/
+	padding: 2%;
+	padding-bottom: 1%;
+}
+
+.logout {
+  	padding: 0.5em 1em;
+  	text-decoration: none;
+  	background-color: #ffffff;/*ボタン色*/
+  	border-radius: 5px;
+	position: absolute;
+	top: 10%;
+	right: 1%;
+}
+
 .start_bar {
 	/*background-color: #30e852;*/	/*lineの色*/
 	/*text-align: center;*/
 	/*background-color: #eeeeee;*/
 	background-color: #ffffff;
-	position: relative;
 	min-height: 2.5em;
 	padding: 2%;
 }
@@ -43,21 +61,40 @@ strong {
 	color: #ffcc99;
 }
 
-.login {
+.form {
+	background-color: #ffffff;
+	text-align: center;
+	margin: 2%;
+	padding: 2%;
+	border-radius: 10px;
+}
+
+.form input[type="submit"] {
   	padding: 0.5em 1em;
   	text-decoration: none;
   	background-color: #668ad8;/*ボタン色*/
   	color: #ffffff;
   	border-radius: 5px;
-	position: absolute;
-	top: 30%;
-	right: 1%;
 }
 
-.description {
-	background-color: #ffffff;
+.item {
+	/*max-width: 500px;*/
+	margin-top: 2%;
+	margin-bottom: 10px;
 	text-align: center;
-	margin: 2%;
+}
+
+.item lavel {
+	vertical-align: top;
+}
+
+.error_message {
+	background-color: #ffff00;
+	/*border: solid 5px #000000;*/
+	color: #ff0000;
+	text-align: center;
+	font-size: 120%;
+	padding: 0;
 }
 
 .comment_title {
@@ -109,7 +146,7 @@ strong {
 
 .update {
 	width: 100%;
-	min-height: 30%;
+	height: 30%;
 	padding: 1em 1em;
   	text-decoration: none;
   	background-color: #ffffff;/*ボタン色*/

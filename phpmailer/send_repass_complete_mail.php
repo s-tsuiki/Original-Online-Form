@@ -4,7 +4,7 @@ require 'src/PHPMailer.php';
 require 'src/SMTP.php';
 require 'setting.php';
 
-function send_test_mail($mail_address, $url){
+function send_repass_complete_mail($mail_address, $user, $password_hide){
 // PHPMailerのインスタンス生成
     $mail = new PHPMailer\PHPMailer\PHPMailer();
 
@@ -20,14 +20,17 @@ function send_test_mail($mail_address, $url){
     $mail->CharSet = "UTF-8";
     $mail->Encoding = "base64";
     $mail->setFrom(MAIL_FROM,MAIL_FROM_NAME);
-    $mail->addAddress($mail_address, 'ユーザー'); //受信者（送信先）を追加する
+    $mail->addAddress($mail_address, $user); //受信者（送信先）を追加する
 //    $mail->addReplyTo('xxxxxxxxxx@xxxxxxxxxx','返信先');
 //    $mail->addCC('xxxxxxxxxx@xxxxxxxxxx'); // CCで追加
 //    $mail->addBcc('xxxxxxxxxx@xxxxxxxxxx'); // BCCで追加
-    $mail->Subject = MAIL_SUBJECT; // メールタイトル
+    $subject = '【Web掲示板】パスワード再設定完了のお知らせ';
+    $mail->Subject = $subject; // メールタイトル
     $mail->isHTML(true);    // HTMLフォーマットの場合はコチラを設定します
-    $body = '10分以内に下記のURLからご登録下さい。'.'<br>'.$url;
-
+    $body = 'パスワードの再設定が完了しました。'.'<br>';
+    $body = $body.'このメールに身に覚えがない方は不正アクセスをされた可能性があります。'.'<br>';
+    $body = $body.'至急このサイトの管理者にお問い合わせください。';
+    
     $mail->Body  = $body; // メール本文
     // メール送信の実行
     if(!$mail->send()) {

@@ -203,131 +203,154 @@ require '../tools/database_connect/database_connect.php';
 <head>
   <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
+  <link rel="stylesheet" type="text/css" href="../layout/mypage.css">
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"><!--Font Awesome 5 Freeの使用-->
   <title><?=htmlspecialchars($user, ENT_QUOTES, 'UTF-8')?>さんのマイページ</title>
 </head>
 <body>
-<h1>ようこそ、<?=htmlspecialchars($user, ENT_QUOTES, 'UTF-8')?>さん</h1>
 
-<!--CSRF対策-->
-<form method = "post" action = "logout.php">
- <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
- <input type = "submit" value="ログアウト"><br>
-</form>
+<div class = "user_bar">
+  <h2>ようこそ、<strong><?=htmlspecialchars($user, ENT_QUOTES, 'UTF-8')?></strong>さん</h2>
 
-<h1>Web掲示板</h1>
-<h2>テーマ:雑談(何を話してもよいです！)</h2>
+  <!--CSRF対策-->
+  <form method = "post" action = "logout.php">
+   <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
+   <input type = "submit" value="ログアウト" class = "logout"><br>
+  </form>
 
+</div>
+
+<div class = "start_bar">
+  <div class = "title">
+    <h1>Web掲示板</h1>
+    <p>テーマ:雑談(何を話してもよいです！)</p>
+  </div>
+</div>
+
+<div class = "form">
 <h2>入力フォーム</h2>
+<p>コメントを入力してください。</p>
+<p><strong>誹謗中傷等がないよう、投稿内容には十分注意してください。</strong></p>
 <form method = "post" action = "mypage.php">
  <input type = "hidden" name = "name" value = <?php if(!empty($name)){echo "'$name'";}?> >
- コメント:<br>
- <textarea name="comment" cols="40" rows="5"><?php if(!empty($comment)){echo htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');}?></textarea> <br>
+ <div class = "item">
+   <lavel for="comment">コメント:</lavel>
+   <textarea name="comment" cols="40" rows="5"><?php if(!empty($comment)){echo htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');}?></textarea>
+ </div>
  <input type = "hidden" name = "password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "送信">
+ <input type = "submit" value = "送信" class = "submit">
  <input type = "hidden" name = "e_number" value = <?php if(!empty($e_number)){echo $e_number;}?> >
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
+</div>
 
+<div class = "form">
 <h2>削除フォーム</h2>
+<p>削除番号を入力してください。</p>
+<p>自分が投稿したコメントのみ削除できます。</p>
 <form method = "post" action = "mypage.php">
- 削除番号:<input type = "number" name = "delete_number"><br>
+ <div class = "item">
+  <lavel for="delete_number">削除番号:</lavel>
+  <input type = "number" name = "delete_number">
+ </div>
  <input type = "hidden" name = "delete_password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "削除">
+ <input type = "submit" value = "削除" class = "submit">
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
+</div>
 
+<div class = "form">
 <h2>編集フォーム</h2>
+<p>編集番号を入力してください。</p>
+<p>自分が投稿したコメントのみ編集できます。</p>
 <form method = "post" action = "mypage.php">
- 編集番号:<input type = "number" name = "edit_number"><br>
+ <div class = "item">
+  <lavel for="edit_number">編集番号:</lavel>
+  <input type = "number" name = "edit_number">
+ </div>
  <input type = "hidden" name = "edit_password" value = <?php if(!empty($password)){echo "'$password'";}?>>
- <input type = "submit" value = "編集">
+ <input type = "submit" value = "編集" class = "submit">
  <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
 </form>
-
-</body>
-
-</body>
-</html>
+</div>
 
 <br>
 
+<div class = "error_message">
 <?php
 	//エラーメッセージ
 	if($case == 1 || $case == 2){
 		if(empty($_POST['name'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['comment'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: コメントを入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: コメントを入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 	}
 	elseif($case == 3){
 		if(empty($_POST['delete_number'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 削除番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 削除番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif($_POST['delete_number'] <= 0){
-			echo "-----------------------------------------<br>";
-			echo "Error: 正しい削除番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 正しい削除番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['delete_password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "----------------------------------------------------<br>";
-			echo "Error: 自分のコメントの削除番号を指定してください。<br>";
-			echo "----------------------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 自分のコメントの削除番号を指定してください。</strong><br>";
+			echo "<br>";
 		}
 	}
 	elseif($case == 4){
 		if(empty($_POST['edit_number'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 編集番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 編集番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif($_POST['edit_number'] <= 0){
-			echo "-----------------------------------------<br>";
-			echo "Error: 正しい編集番号を入力してください。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 正しい編集番号を入力してください。</strong><br>";
+			echo "<br>";
 		}
 		elseif(empty($_POST['edit_password'])){
-			echo "-----------------------------------------<br>";
-			echo "Error: 不正なリクエストです。<br>";
-			echo "-----------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 不正なリクエストです。</strong><br>";
+			echo "<br>";
 		}
 		elseif($is_correct == 2){
-			echo "---------------------------------------------------<br>";
-			echo "Error: 自分のコメントの編集番号を指定してください。<br>";
-			echo "---------------------------------------------------";
+			echo "<br>";
+			echo "<strong>Error: 自分のコメントの編集番号を指定してください。</strong><br>";
+			echo "<br>";
 		}
 	}
 	
 ?>
+</div>
 
-<h2>コメント</h2>
-<!--CSRF対策-->
-<form method = "post" action = "mypage.php">
- <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
- <input type = "submit" value="更新"><br>
-</form>
+<h2 class = "comment_title" id = "1">コメント一覧</h2>
+
 <br>
 
 <?php
@@ -337,12 +360,28 @@ require '../tools/database_connect/database_connect.php';
 	$results = $stmt->fetchAll();
 	foreach ($results as $row){
 		//$rowの中にはテーブルのカラム名が入る
+		echo '<div class = "status">';
 		echo $row['id'].'　';
 		echo htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8').'　';
-		echo date('Y/m/d H:i:s', strtotime($row['date_time'])).'<br>';
-		echo htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8').'<br>'.'<br>';
+		echo date('Y/m/d H:i:s', strtotime($row['date_time']));
+		echo '</div>';
+		echo '<div class = "comment">';
+		echo '<p>'.str_replace(["\r\n","\r","\n"], "</p><p>", htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8')).'</p>';
+		echo '</div>';
 	}
 
 	//データベース接続切断
 	$pdo = null;
 ?>
+
+<!--CSRF対策-->
+<form method = "post" action = "mypage.php#2"  id = "2">
+ <input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
+ <input type = "submit" value="コメントを更新" class = "update"><br> 
+</form>
+
+<input type="button" value="↓" onclick = "location.href='#2'" class = "jump_bottom">
+
+</body>
+
+</html>

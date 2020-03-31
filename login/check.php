@@ -91,18 +91,25 @@ require '../tools/database_connect/database_connect.php';
 <head>
   <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
+  <link rel="stylesheet" type="text/css" href="../layout/check.css">
   <title>処理画面</title>
 </head>
 <body>
 <?php if(count($errors) > 0):?>
 
+<div class="error_area">
+
+<h1>Web掲示板</h1>
+
 <?php
 foreach($errors as $value){
-	echo "<p>".$value."</p>";
+	echo "<p><strong>".$value."</strong></p>";
 }
 ?>
 
-<input type="button" value="戻る" onClick="history.back()">
+<input type="button" value="戻る" onClick="history.back()" class = "back">
+
+</div>
 
 <?php endif; ?>
 </body>

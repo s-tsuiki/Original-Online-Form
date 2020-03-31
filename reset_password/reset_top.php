@@ -17,29 +17,31 @@
 <head>
  <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
  <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
- <link rel="stylesheet" type="text/css" href="../layout/top.css">
- <title>ログイン画面</title>
+ <link rel="stylesheet" type="text/css" href="../layout/reset_top.css">
+ <title>ユーザー入力画面</title>
 </head>
 <body>
-<div class = "login_area">
+<div class = "registration_area">
 
 <h1>Web掲示板</h1>
-<h2>ログイン</h2>
-
-<form action="check.php" method="post">
+<h2>パスワードの再設定</h2>
  
-<p><lavel for="user">ユーザー名:</lavel></p>
+<p>あなたのユーザー名とメールアドレスを記入してください。</p>
+<p>登録してあるメールアドレスに再設定用のURLを送ります。</p>
+<br>
+<form action="reset_user_check.php" method="post" class = "form">
+ 
+<p><label for="user">あなたのユーザー名：</lavel></p>
 <p><input type="text" name="user"></p>
-<p><lavel for="password">パスワード:</lavel></p>
-<p><input type="password" name="password"></p>
+<p><label for="mail">あなたのメールアドレス：</lavel></p>
+<p><input type="email" name="mail" placeholder="welcome@example.com"></p>
  
-<input type = "hidden" name = "token" value = <?=htmlspecialchars($token, ENT_QUOTES, 'UTF-8')?> >
-<input type="submit" value="ログイン" class = "login">
+<input type="hidden" name="token" value="<?=$token?>">
+<input type="submit" value="確認" class = "confirm">
  
 </form>
-<br>
-パスワードを忘れた場合は<a href="/reset_password/reset_top.php">こちら</a>
-
+ 
 </div>
+
 </body>
 </html>

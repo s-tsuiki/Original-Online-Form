@@ -1,6 +1,7 @@
 <?php
 require '../tools/database_connect/database_connect.php';
-require '../phpmailer/send_complete_mail.php';
+require '../phpmailer/send_repass_complete_mail.php';
+
 	session_start();
  
 	header("Content-type: text/html; charset=utf-8");
@@ -12,7 +13,7 @@ require '../phpmailer/send_complete_mail.php';
 	}
 
 	if(empty($_POST)) {
-		header("Location: mail_registration.php");
+		header("Location: reset_top.php");
 		exit();
 	}
 
@@ -31,7 +32,6 @@ require '../phpmailer/send_complete_mail.php';
 	//エラーメッセージの初期化
 	$errors = array();
  
-	$mail = $_SESSION['mail'];
 	$user = $_SESSION['user'];
 	$password = $_SESSION['password'];
  
@@ -44,21 +44,33 @@ require '../phpmailer/send_complete_mail.php';
 		$pdo->beginTransaction();
 	
 		//memberテーブルに本登録する
-		$stmt = $pdo->prepare("INSERT INTO member (user,mail,password) VALUES (:user,:mail,:password_hash)");
+		$stmt = $pdo->prepare("UPDATE member SET password=(:password_hash) WHERE user=(:user) AND flag=1");
 		//プレースホルダへ実際の値を設定する
 		$stmt->bindValue(':user', $user, PDO::PARAM_STR);
-		$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
 		$stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
 		$stmt->execute();
 		
-		//pre_memberのflagを1にする
-		$stmt = $pdo->prepare("UPDATE pre_member SET flag=1 WHERE mail=(:mail)");
+		//reset_pass_memberのflagを1にする
+		$stmt = $pdo->prepare("UPDATE reset_pass_member SET flag=1 WHERE user=(:user)");
 		//プレースホルダへ実際の値を設定する
-		$stmt->bindValue(':mail', $mail, PDO::PARAM_STR);
+		$stmt->bindValue(':user', $user, PDO::PARAM_STR);
 		$stmt->execute();
 	
 		// トランザクション完了（コミット）
 		$pdo->commit();
+
+		//メールアドレス取得
+		$stmt = $pdo->prepare("SELECT mail FROM member WHERE user=(:user) AND flag =1");
+		$stmt->bindValue(':user', $user, PDO::PARAM_STR);
+		$stmt->execute();
+
+		if( $stmt->rowCount() == 1){
+			$mail_array = $stmt->fetch();
+			$mail = $mail_array['mail'];
+		}
+		else{
+			$errors['mail'] = "メールアドレスが取得できません。";
+		}
 		
 		//データベース接続切断
 		$pdo = null;
@@ -75,12 +87,14 @@ require '../phpmailer/send_complete_mail.php';
  		session_destroy();
  	
  		//登録完了のメールを送信
-		$password_hide = str_repeat('*', strlen($password));
-		$message = send_complete_mail($mail, $user, $password_hide);
- 		
-		if ($message !== '送信完了！') {
- 			$errors['mail_error'] = $message;
-	 	}
+		if(count($errors) == 0){
+			$password_hide = str_repeat('*', strlen($password));
+			$message = send_repass_complete_mail($mail, $user, $password_hide);
+
+			if ($message !== '送信完了！') {
+ 				$errors['mail_error'] = $message;
+	 		}
+		}
 		
 	}catch (PDOException $e){
 		//トランザクション取り消し（ロールバック）
@@ -96,8 +110,8 @@ require '../phpmailer/send_complete_mail.php';
 <head>
   <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
-  <link rel="stylesheet" type="text/css" href="../layout/user_registration_complete.css">
-  <title>ユーザー登録完了画面</title>
+  <link rel="stylesheet" type="text/css" href="../layout/password_reregistration_complete.css">
+  <title>パスワード再設定完了画面</title>
 </head>
 <body>
 <div class="complete_area">
@@ -105,9 +119,9 @@ require '../phpmailer/send_complete_mail.php';
 <h1>Web掲示板</h1>
 
 <?php if (count($errors) === 0): ?>
-<h2>ユーザー登録完了</h2>
+<h2>パスワード再設定完了</h2>
  
-<p>登録完了いたしました。</p>
+<p>パスワードの再設定が完了いたしました。</p>
 <p>下のログインボタンからログインをしてください。</p>
 <p><input type="button" value="ログイン" onclick="location.href='../login/top.php'" class = "login"></p>
  

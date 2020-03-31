@@ -34,7 +34,7 @@ require 'tools/database_connect/database_connect.php';
     <h1>Web掲示板</h1>
     <p>テーマ:雑談(何を話してもよいです！)</p>
   </div>
-  <a href="/login/top.php"><input type="button" value="ログイン" class = "login"></a>
+  <input type="button" value="ログイン" onclick="location.href='/login/top.php'" class = "login">
 </div>
 
 <div class = "description">
@@ -44,16 +44,9 @@ require 'tools/database_connect/database_connect.php';
   <p>アカウントがない場合は、<a href="/registration/mail_registration.php" target="_blank">アカウントを作成</a></p>
 </div>
 
-</body>
-
-</html>
-
 <br>
 
-<div class = "comment_start_bar">
-  <h2 class = "comment_title">コメント一覧</h2>
-  <a href="mission_6-2.php"><input type="button" value="更新" class = "update"></a>
-</div>
+<h2 class = "comment_title" id = "1">コメント一覧</h2>
 <br>
 
 <?php
@@ -69,10 +62,19 @@ require 'tools/database_connect/database_connect.php';
 		echo date('Y/m/d H:i:s', strtotime($row['date_time']));
 		echo '</div>';
 		echo '<div class = "comment">';
-		echo '<p>'.htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8').'</p>';
+		echo '<p>'.str_replace(["\r\n","\r","\n"], "</p><p>", htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8')).'</p>';
 		echo '</div>';
 	}
 
 	//データベース接続切断
 	$pdo = null;
 ?>
+<br>
+
+<input type="button" value="コメントを更新" onclick = "window.location.reload();location.href='#2'" class = "update" id = "2">
+
+<input type="button" value="↓" onclick = "location.href='#2'" class = "jump_bottom">
+
+</body>
+
+</html>

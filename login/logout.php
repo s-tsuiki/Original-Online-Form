@@ -46,11 +46,19 @@
     <head>
 	<meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   	<meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
+	<link rel="stylesheet" type="text/css" href="../layout/logout.css">
         <title>ログアウト画面</title>
     </head>
     <body>
-        <h1>ログアウト画面</h1>
+	<div class="logout_area">
+
+	<h1>Web掲示板</h1>
+        <h2>ログアウト</h2>
+	<br>
         <p><?=$message?></p>
+	<br>
         <p><a href="../mission_6-2.php">トップページに戻る</a></p>
+
+	</div>
     </body>
 </html>

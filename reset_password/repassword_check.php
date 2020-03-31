@@ -12,7 +12,7 @@ require '../tools/database_connect/database_connect.php';
 	}
 
 	if(empty($_POST)) {
-		header("Location: mail_registration.php");
+		header("Location: reset_top.php");
 		exit();
 	}
 
@@ -38,7 +38,7 @@ require '../tools/database_connect/database_connect.php';
 	$errors = array();
  
 	if(empty($_POST)) {
-		header("Location: mail_registration.php");
+		header("Location: reset_top.php");
 		exit();
 	}else{
 		//POSTされたデータを各変数に入れる
@@ -50,43 +50,6 @@ require '../tools/database_connect/database_connect.php';
 		$user = spaceTrim($user);
 		$password = spaceTrim($password);
 		$password2 = spaceTrim($password2);
- 
-		//ユーザー名入力判定
-		if ($user == ''){
-			$errors['user'] = "ユーザー名が入力されていません。";
-		}
-		elseif(mb_strlen($user)>10){
-			$errors['user_length'] = "ユーザー名は10文字以内で入力して下さい。";
-		}
-		//ユーザー名がすでに登録されているか確認
-		else{
-			//データベースへの接続
-			$pdo = db_connect();
-
-			//データベースの作成
-			$sql = "CREATE TABLE IF NOT EXISTS member"
-			." ("
-			."id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
-			."user VARCHAR(50) NOT NULL,"
-			."mail VARCHAR(50) NOT NULL,"
-			."password VARCHAR(128) NOT NULL,"
-			."flag TINYINT(1) NOT NULL DEFAULT 1"
- 			.")ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;";
-	
-			$stmt = $pdo->query($sql);
-
-			//本登録用のmemberテーブルにすでに登録されているuserかどうかをチェックする
-			$stmt = $pdo->prepare("SELECT mail FROM member WHERE user=(:user) AND flag =1");
-			$stmt->bindValue(':user', $user, PDO::PARAM_STR);
-			$stmt->execute();
-
-			if( $stmt->rowCount() == 1){
-				$errors['user_registration'] = "ユーザー名が既に登録されています。";
-			}
-			
-			//データベース接続切断
-			$pdo = null;
-		}
 	
 		//パスワード入力判定
 		if ($password == '' || $password2 == ''):
@@ -115,8 +78,8 @@ require '../tools/database_connect/database_connect.php';
 <head>
   <meta name="viewport" content="width=320, height=480, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes"><!-- for smartphone. ここは一旦、いじらなくてOKです。 -->
   <meta charset="utf-8"><!-- 文字コード指定。ここはこのままで。 -->
-  <link rel="stylesheet" type="text/css" href="../layout/user_check.css">
-  <title>ユーザー登録確認画面</title>
+  <link rel="stylesheet" type="text/css" href="../layout/repassword_check.css">
+  <title>パスワード確認画面</title>
 </head>
 <body>
 <div class="confirm_area">
@@ -125,20 +88,15 @@ require '../tools/database_connect/database_connect.php';
  
 <?php if (count($errors) === 0): ?>
  
-<h2>ユーザー登録確認</h2>
+<h2>パスワードの再設定の確認</h2>
 
-<form action="user_registration_complete.php" method="post" class="form">
- 
-<p>メールアドレス：</p>
-<p><?=htmlspecialchars($_SESSION['mail'], ENT_QUOTES)?></p>
-<p>ユーザー名：</p>
-<p><?=htmlspecialchars($user, ENT_QUOTES)?></p>
-<p>パスワード：</p>
-<p><?=$password_hide?></p>
+<?=htmlspecialchars($user, ENT_QUOTES)?>さんのパスワードを再設定しますか？
+
+<form action="password_reregistration_complete.php" method="post" class="form">
  
 <input type="button" value="戻る" onClick="history.back()" class ="back">
 <input type="hidden" name="token" value="<?=$_POST['token']?>">
-<input type="submit" value="登録する" class = "registrate">
+<input type="submit" value="はい" class = "registrate">
  
 </form>
  

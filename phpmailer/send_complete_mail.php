@@ -20,7 +20,7 @@ function send_complete_mail($mail_address, $user, $password_hide){
     $mail->CharSet = "UTF-8";
     $mail->Encoding = "base64";
     $mail->setFrom(MAIL_FROM,MAIL_FROM_NAME);
-    $mail->addAddress($mail_address, 'テスト'); //受信者（送信先）を追加する
+    $mail->addAddress($mail_address, $user); //受信者（送信先）を追加する
 //    $mail->addReplyTo('xxxxxxxxxx@xxxxxxxxxx','返信先');
 //    $mail->addCC('xxxxxxxxxx@xxxxxxxxxx'); // CCで追加
 //    $mail->addBcc('xxxxxxxxxx@xxxxxxxxxx'); // BCCで追加
