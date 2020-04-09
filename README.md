@@ -17,8 +17,8 @@ XSS、CSRF対策など、基本的なセキュリティ対策は実装済み。
 ## 内容
 ### トップページ
 <div align="center">
-<img src="https://raw.github.com/wiki/s-tsuiki/Original-Online-Form/images/Untitled.jpeg" alt="トップページの画像（PC）">
-<img src="https://raw.github.com/wiki/s-tsuiki/Original-Online-Form/images/Untitled.jpeg" alt="トップページの画像（スマホ）">
+<img src="https://raw.github.com/wiki/s-tsuiki/Original-Online-Form/images/toppage_PC.jpg" alt="トップページの画像（PC）" width="600">
+<img src="https://raw.github.com/wiki/s-tsuiki/Original-Online-Form/images/toppage_phone.jpg" alt="トップページの画像（スマホ）" width="200">
 </div>
 
 トップページはこのようになってます。  
